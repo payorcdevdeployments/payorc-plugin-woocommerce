@@ -1,0 +1,95 @@
+.transaction-lookup {
+    margin: 20px 0;
+}
+
+.payorc-card {
+    max-width: 100%;
+    width: 100%;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.transaction-lookup .form-field {
+    margin-bottom: 20px;
+}
+
+.transaction-lookup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.transaction-lookup input[type="text"] {
+    width: 300px;
+    margin-right: 10px;
+}
+
+.transaction-lookup button {
+    vertical-align: middle;
+}
+
+.transaction-details {
+    background: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.transaction-details h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.json-response {
+    background: #1e1e1e;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow: auto;
+    max-height: 500px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #d4d4d4;
+}
+
+.json-response .string {
+    color: #ce9178;
+}
+
+.json-response .number {
+    color: #b5cea8;
+}
+
+.json-response .boolean {
+    color: #569cd6;
+}
+
+.json-response .null {
+    color: #569cd6;
+}
+
+.json-response .key {
+    color: #9cdcfe;
+}
+
+.notice {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+}
+
+.notice.success {
+    background: #ecf7ed;
+    border-left: 4px solid #46b450;
+}
+
+.notice.error {
+    background: #fbeaea;
+    border-left: 4px solid #dc3232;
+} 
