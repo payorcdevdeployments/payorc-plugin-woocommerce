@@ -102,8 +102,12 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
         add_action('wp_ajax_payorc_get_transaction', array($this, 'ajax_get_transaction'));
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
-        add_action('wp_ajax_payorc_validate_payment', array($this, 'validate_payment'));
-        add_action('wp_ajax_nopriv_payorc_validate_payment', array($this, 'validate_payment'));
+        
+        // Only add payment validation for actual payment processing
+        if (is_checkout() && !is_wc_endpoint_url('order-pay')) {
+            add_action('wp_ajax_payorc_validate_payment', array($this, 'validate_payment'));
+            add_action('wp_ajax_nopriv_payorc_validate_payment', array($this, 'validate_payment'));
+        }
         
         // Add test card information for test mode
         if ($this->testmode === 'yes') {
@@ -559,11 +563,13 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Handle payment validation AJAX request
      */
     public static function validate_payment() {
-        //check_ajax_referer('payorc-payment-validation', 'nonce');
-
         try {
+            error_log('PayOrc: Starting payment validation');
+            
             $gateway = new WC_PayOrc_Payment_Gateway();
             $payment_data = isset($_POST['payment_data']) ? wp_unslash($_POST['payment_data']) : array();
+            
+            error_log('PayOrc: Payment data received: ' . print_r($payment_data, true));
             
             // Get order ID from payment data if session is expired
             $order_id = WC()->session->get('order_awaiting_payment');
@@ -571,7 +577,10 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 $order_id = $payment_data['m_order_id'];
             }
 
+            error_log('PayOrc: Order ID from session: ' . $order_id);
+
             if (!$order_id) {
+                error_log('PayOrc: No order ID found');
                 wp_send_json_error(array(
                     'message' => 'Order ID not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -581,6 +590,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             $order = wc_get_order($order_id);
             if (!$order) {
+                error_log('PayOrc: Order not found for ID: ' . $order_id);
                 wp_send_json_error(array(
                     'message' => 'Order not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -588,7 +598,10 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 return;
             }
 
+            error_log('PayOrc: Validating order: ' . $order_id);
+            
             if ($gateway->is_valid_order($payment_data)) {
+                error_log('PayOrc: Order validation successful');
                 $gateway->store_payment_info($payment_data, $order);
                 $order->payment_complete();
                 $order->add_order_note(__('PayOrc payment completed', 'payorc-payments'));
@@ -597,6 +610,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                     'redirect_url' => $gateway->get_return_url($order)
                 ));
             } else {
+                error_log('PayOrc: Order validation failed');
                 $order->update_status('failed', __('PayOrc payment failed', 'payorc-payments'));
                 wp_send_json_error(array(
                     'message' => 'Payment validation failed',

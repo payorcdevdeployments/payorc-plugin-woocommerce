@@ -3,15 +3,21 @@ jQuery(function($) {
 
     var PayOrc = {
         init: function() {
-            this.bindEvents();
-            this.attachEvent();
+            // Only initialize if we're on the checkout page and not during initial load
+            if ($('form.checkout').length && !window.location.search.includes('iframe_url')) {
+                this.bindEvents();
+                this.attachEvent();
+            }
         },
 
         bindEvents: function() {
             $('form.checkout').on('checkout_place_order_payorc', this.handleSubmit.bind(this));
         },
 
-        handleSubmit: function() {
+        handleSubmit: function(e) {
+            // Prevent default form submission
+            e.preventDefault();
+            
             if (payorc_params.checkout_mode === 'iframe') {
                 // For iframe mode, let the form submit normally but handle the response in process_payment
                 return true;
