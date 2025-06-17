@@ -240,7 +240,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             if (!isset($body['status']) || !isset($body['status_code'])) {
                 error_log('PayOrc Error: Invalid API response format');
-                throw new Exception('Invalid API response format');
+                throw new Exception($body['message'] ?? 'Invalid API response format');
             }
 
             if ($body['status'] !== 'SUCCESS' || $body['status_code'] !== '00') {
