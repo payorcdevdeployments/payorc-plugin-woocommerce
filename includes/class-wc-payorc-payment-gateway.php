@@ -132,7 +132,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             
             $order = wc_get_order($order_id);
             if (!$order) {
-                error_log('PayOrc Error: Invalid order ID ' . $order_id);
+                self::log_to_file('PayOrc Error: Invalid order ID ' . $order_id);
                 throw new Exception('Invalid order ID');
             }
 
@@ -232,19 +232,19 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             ));
 
             if (is_wp_error($response)) {
-                error_log('PayOrc API Error: ' . $response->get_error_message());
+                self::log_to_file('PayOrc API Error: ' . $response->get_error_message());
                 throw new Exception($response->get_error_message());
             }
 
             $body = json_decode(wp_remote_retrieve_body($response), true);
 
             if (!isset($body['status']) || !isset($body['status_code'])) {
-                error_log('PayOrc Error: Invalid API response format');
+                self::log_to_file('PayOrc Error: Invalid API response format');
                 throw new Exception($body['message'] ?? 'Invalid API response format');
             }
 
             if ($body['status'] !== 'SUCCESS' || $body['status_code'] !== '00') {
-                error_log('PayOrc Error: ' . (isset($body['message']) ? $body['message'] : 'Unknown error'));
+                self::log_to_file('PayOrc Error: ' . (isset($body['message']) ? $body['message'] : 'Unknown error'));
                 throw new Exception(isset($body['message']) ? $body['message'] : 'Unknown error');
             }
 
@@ -254,13 +254,13 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             // Return based on checkout mode
             if ($this->checkout_mode === 'hosted') {
-                error_log('PayOrc: Redirecting to hosted checkout: ' . $body['payment_link']);
+                self::log_to_file('PayOrc: Redirecting to hosted checkout: ' . $body['payment_link']);
                 return array(
                     'result' => 'success',
                     'redirect' => $body['payment_link']
                 );
             } else {
-                error_log('PayOrc: Setting up iframe checkout');
+                self::log_to_file('PayOrc: Setting up iframe checkout');
                 WC()->session->set('payorc_iframe_url', $body['iframe_link']);
                 return array(
                     'result' => 'success',
@@ -273,7 +273,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 );
             }
         } catch (Exception $e) {
-            error_log('PayOrc Process Payment Exception: ' . $e->getMessage());
+            self::log_to_file('PayOrc Process Payment Exception: ' . $e->getMessage());
             wc_add_notice(__('Payment error: ', 'payorc-payments') . $e->getMessage(), 'error');
             return array('result' => 'fail');
         }
@@ -284,18 +284,18 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      */
     public function webhook_handler() {
         if (isset($_GET['payorc-action'])) {
-            error_log('came here');
+            self::log_to_file('came here');
             $action = sanitize_text_field($_GET['payorc-action']);
             $order_id = isset($_GET['order_id']) ? absint($_GET['order_id']) : 0;
             $order = wc_get_order($order_id);
-            error_log('Order ID - '.$order_id);
-            error_log('Order - '.print_r($order, true));
+            self::log_to_file('Order ID - '.$order_id);
+            self::log_to_file('Order - '.print_r($order, true));
             if (!$order) {
                 wp_redirect(wc_get_checkout_url());
                 exit;
             }
 
-            error_log('action - '.$action);
+            self::log_to_file('action - '.$action);
             $gateway = new WC_PayOrc_Payment_Gateway();
             switch ($action) {
                 case 'success':
@@ -564,12 +564,12 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      */
     public static function validate_payment() {
         try {
-            error_log('PayOrc: Starting payment validation');
+            self::log_to_file('PayOrc: Starting payment validation');
             
             $gateway = new WC_PayOrc_Payment_Gateway();
             $payment_data = isset($_POST['payment_data']) ? wp_unslash($_POST['payment_data']) : array();
             
-            error_log('PayOrc: Payment data received: ' . print_r($payment_data, true));
+            self::log_to_file('PayOrc: Payment data received: ' . print_r($payment_data, true));
             
             // Get order ID from payment data if session is expired
             $order_id = WC()->session->get('order_awaiting_payment');
@@ -577,10 +577,10 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 $order_id = $payment_data['m_order_id'];
             }
 
-            error_log('PayOrc: Order ID from session: ' . $order_id);
+            self::log_to_file('PayOrc: Order ID from session: ' . $order_id);
 
             if (!$order_id) {
-                error_log('PayOrc: No order ID found');
+                self::log_to_file('PayOrc: No order ID found');
                 wp_send_json_error(array(
                     'message' => 'Order ID not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -590,7 +590,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             $order = wc_get_order($order_id);
             if (!$order) {
-                error_log('PayOrc: Order not found for ID: ' . $order_id);
+                self::log_to_file('PayOrc: Order not found for ID: ' . $order_id);
                 wp_send_json_error(array(
                     'message' => 'Order not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -598,10 +598,10 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 return;
             }
 
-            error_log('PayOrc: Validating order: ' . $order_id);
+            self::log_to_file('PayOrc: Validating order: ' . $order_id);
             
             if ($gateway->is_valid_order($payment_data)) {
-                error_log('PayOrc: Order validation successful');
+                self::log_to_file('PayOrc: Order validation successful');
                 $gateway->store_payment_info($payment_data, $order);
                 $order->payment_complete();
                 $order->add_order_note(__('PayOrc payment completed', 'payorc-payments'));
@@ -610,7 +610,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                     'redirect_url' => $gateway->get_return_url($order)
                 ));
             } else {
-                error_log('PayOrc: Order validation failed');
+                self::log_to_file('PayOrc: Order validation failed');
                 $order->update_status('failed', __('PayOrc payment failed', 'payorc-payments'));
                 wp_send_json_error(array(
                     'message' => 'Payment validation failed',
@@ -618,7 +618,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 ));
             }
         } catch (Exception $e) {
-            error_log('PayOrc Payment Validation Error: ' . $e->getMessage());
+            self::log_to_file('PayOrc Payment Validation Error: ' . $e->getMessage());
             wp_send_json_error(array(
                 'message' => 'An error occurred during payment validation',
                 'redirect_url' => wc_get_checkout_url()
@@ -685,11 +685,11 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             if (!$exists) {
                 $result = $wpdb->insert($wpdb->prefix . 'payorc_transaction', $data);
                 if ($result === false) {
-                    error_log('PayOrc DB Error: ' . $wpdb->last_error);
+                    self::log_to_file('PayOrc DB Error: ' . $wpdb->last_error);
                 }
             }
         } catch (Exception $e) {
-            error_log('PayOrc DB Exception: ' . $e->getMessage());
+            self::log_to_file('PayOrc DB Exception: ' . $e->getMessage());
         }
     }
 
@@ -880,5 +880,19 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             wp_redirect(wc_get_checkout_url());
             exit;
         }
+    }
+
+    /**
+     * Log message to file in logs directory, file named by current date and hour
+     */
+    private static function log_to_file($message) {
+        $log_dir = dirname(__DIR__) . '/../logs';
+        if (!file_exists($log_dir)) {
+            mkdir($log_dir, 0755, true);
+        }
+        $filename = $log_dir . '/payorc-' . date('Y-m-d-H') . '.log';
+        $datetime = date('Y-m-d H:i:s');
+        $log_entry = "[$datetime] $message\n";
+        file_put_contents($filename, $log_entry, FILE_APPEND);
     }
 }
