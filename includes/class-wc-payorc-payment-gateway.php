@@ -71,6 +71,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Constructor for the gateway
      */
     public function __construct() {
+        self::log_to_file('__construct called');
         $this->id                 = 'payorc';
         $this->icon              = apply_filters('woocommerce_payorc_icon', '');
         $this->has_fields        = false;
@@ -119,6 +120,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get country code
      */
     private function get_country_code($country) {
+        self::log_to_file('get_country_code called with country=' . $country);
         return isset($this->countries[$country]) ? $this->countries[$country] : '';
     }
 
@@ -126,6 +128,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Process the payment
      */
     public function process_payment($order_id) {
+        self::log_to_file('process_payment called with order_id=' . $order_id);
         global $woocommerce;
         
         try {
@@ -283,6 +286,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Handle the webhook and return URLs
      */
     public function webhook_handler() {
+        self::log_to_file('webhook_handler called');
         if (isset($_GET['payorc-action'])) {
             self::log_to_file('came here');
             $action = sanitize_text_field($_GET['payorc-action']);
@@ -351,6 +355,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Initialize Gateway Settings Form Fields
      */
     public function init_form_fields() {
+        self::log_to_file('init_form_fields called');
         $this->form_fields = array(
             'enabled' => array(
                 'title'       => __('Enable/Disable', 'payorc-payments'),
@@ -447,6 +452,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Validate merchant credentials
      */
     private function validate_merchant_credentials() {
+        self::log_to_file('validate_merchant_credentials called');
         $merchant_key = $this->testmode ? $this->get_option('test_merchant_key') : $this->get_option('live_merchant_key');
         $merchant_secret = $this->testmode ? $this->get_option('test_merchant_secret') : $this->get_option('live_merchant_secret');
 
@@ -475,6 +481,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get browser information
      */
     private function get_browser_info() {
+        self::log_to_file('get_browser_info called');
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         
         $browser = 'Unknown';
@@ -516,6 +523,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get platform information
      */
     private function get_platform() {
+        self::log_to_file('get_platform called');
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         
         if (preg_match('/linux|android/i', $user_agent)) {
@@ -535,6 +543,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Add payment scripts
      */
     public function payment_scripts() {
+        self::log_to_file('payment_scripts called');
         if (!is_checkout() || $this->enabled !== 'yes') {
             return;
         }
@@ -563,6 +572,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Handle payment validation AJAX request
      */
     public static function validate_payment() {
+        self::log_to_file('validate_payment called');
         try {
             self::log_to_file('PayOrc: Starting payment validation');
             
@@ -632,6 +642,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Check if the order is valid
      */
     protected function is_valid_order($payment_data) {
+        self::log_to_file('is_valid_order called');
         return isset($payment_data['status_code']) 
             && isset($payment_data['status'])
             && $payment_data['status_code'] == '00' 
@@ -642,6 +653,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Store payment information in the database
      */
     protected function store_payment_info($payment_data, $order) {
+        self::log_to_file('store_payment_info called');
         global $wpdb;
 
         // Convert payment data to array if it's a string
@@ -697,6 +709,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Verify webhook signature
      */
     private function verify_webhook_signature($signature, $payload) {
+        self::log_to_file('verify_webhook_signature called');
         $expected = hash_hmac('sha256', $payload, $this->merchant_secret);
         return hash_equals($expected, $signature);
     }
@@ -705,6 +718,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get transaction details by order ID
      */
     public static function get_transaction($order_id) {
+        self::log_to_file('get_transaction called with order_id=' . $order_id);
         global $wpdb;
         
         $query = $wpdb->prepare(
@@ -722,6 +736,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * AJAX handler for getting transaction details
      */
     public function ajax_get_transaction() {
+        self::log_to_file('ajax_get_transaction called');
         // Check user capabilities
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array('message' => 'Permission denied'));
@@ -756,6 +771,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Add admin menu for transaction lookup
      */
     public function add_admin_menu() {
+        self::log_to_file('add_admin_menu called');
         add_submenu_page(
             'woocommerce',
             __('PayOrc Transactions', 'payorc-payments'),
@@ -770,6 +786,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Enqueue admin scripts
      */
     public function admin_scripts($hook) {
+        self::log_to_file('admin_scripts called with hook=' . $hook);
         if ($hook != 'woocommerce_page_payorc-transactions') {
             return;
         }
@@ -789,6 +806,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Render transaction lookup page
      */
     public function render_transaction_page() {
+        self::log_to_file('render_transaction_page called');
         $transactions = $this->get_payorc_transactions();
         ?>
         <div class="wrap">
@@ -844,6 +862,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
     }
 
     public function get_payorc_transactions() {
+        self::log_to_file('get_payorc_transactions called');
         global $wpdb;
         $table_name = $wpdb->prefix . 'payorc_transaction';
     
@@ -874,6 +893,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
     public function webhook() 
     {
+        self::log_to_file('webhook called');
         if (isset($_GET['payorc-action'])) {
             $this->webhook_handler();
         } else {
