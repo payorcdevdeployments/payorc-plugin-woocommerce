@@ -16,7 +16,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
     /**
      * Country codes with their dialing codes
      */
-    public $countries = ["AW"=>"297","AF"=>"93","AO"=>"244","AI"=>"1-264","AX"=>"358-18","AL"=>"355","AD"=>"376","AR"=>"54","AM"=>"374","AS"=>"1-684","AQ"=>"672","TF"=>"262","AG"=>"1-268","AU"=>"61","AT"=>"43","AZ"=>"994","BI"=>"257","BE"=>"32","BJ"=>"229","BQ"=>"599","BF"=>"226","BD"=>"880","BG"=>"359","BH"=>"973","BS"=>"1-242","BA"=>"387","BL"=>"590","BY"=>"375","BZ"=>"501","BM"=>"1-441","BO"=>"591","BR"=>"55","BB"=>"1-246","BN"=>"673","BT"=>"975","BV"=>"47","BW"=>"267","CF"=>"236","CA"=>"1","CC"=>"61","CH"=>"41","CL"=>"56","CN"=>"86","CI"=>"225","CM"=>"237","CD"=>"243","CG"=>"242","CK"=>"682","CO"=>"57","KM"=>"269","CV"=>"238","CR"=>"506","CU"=>"53","CW"=>"599","CX"=>"61","KY"=>"1-345","CY"=>"357","CZ"=>"420","DE"=>"49","DJ"=>"253","DM"=>"1-767","DK"=>"45","DO"=>"1-809","DZ"=>"213","EC"=>"593","EG"=>"20","ER"=>"291","EH"=>"212","ES"=>"34","EE"=>"372","ET"=>"251","FI"=>"358","FJ"=>"679","FK"=>"500","FR"=>"33","FO"=>"298","FM"=>"691","GA"=>"241","GB"=>"44","GE"=>"995","GG"=>"44","GH"=>"233","GI"=>"350","GN"=>"224","GP"=>"590","GM"=>"220","GW"=>"245","GQ"=>"240","GR"=>"30","GD"=>"1-473","GL"=>"299","GT"=>"502","GF"=>"594","GU"=>"1-671","GY"=>"592","HK"=>"852","HM"=>"61","HN"=>"504","HR"=>"385","HT"=>"509","HU"=>"36","ID"=>"62","IM"=>"44","IN"=>"91","IO"=>"246","IE"=>"353","IR"=>"98","IQ"=>"964","IS"=>"354","IL"=>"972","IT"=>"39","JM"=>"1-876","JE"=>"44","JO"=>"962","JP"=>"81","KZ"=>"7","KE"=>"254","KG"=>"996","KH"=>"855","KI"=>"686","KN"=>"1-869","KR"=>"82","KW"=>"965","LA"=>"856","LB"=>"961","LR"=>"231","LY"=>"218","LC"=>"1-758","LI"=>"423","LK"=>"94","LS"=>"266","LT"=>"370","LU"=>"352","LV"=>"371","MO"=>"853","MF"=>"590","MA"=>"212","MC"=>"377","MD"=>"373","MG"=>"261","MV"=>"960","MX"=>"52","MH"=>"692","MK"=>"389","ML"=>"223","MT"=>"356","MM"=>"95","ME"=>"382","MN"=>"976","MP"=>"1-670","MZ"=>"258","MR"=>"222","MS"=>"1-664","MQ"=>"596","MU"=>"230","MW"=>"265","MY"=>"60","YT"=>"262","NA"=>"264","NC"=>"687","NE"=>"227","NF"=>"672","NG"=>"234","NI"=>"505","NU"=>"683","NL"=>"31","NO"=>"47","NP"=>"977","NR"=>"674","NZ"=>"64","OM"=>"968","PK"=>"92","PA"=>"507","PN"=>"64","PE"=>"51","PH"=>"63","PW"=>"680","PG"=>"675","PL"=>"48","PR"=>"1-787","KP"=>"850","PT"=>"351","PY"=>"595","PS"=>"970","PF"=>"689","QA"=>"974","RE"=>"262","RO"=>"40","RU"=>"7","RW"=>"250","SA"=>"966","SD"=>"249","SN"=>"221","SG"=>"65","GS"=>"500","SH"=>"290","SJ"=>"47","SB"=>"677","SL"=>"232","SV"=>"503","SM"=>"378","SO"=>"252","PM"=>"508","RS"=>"381","SS"=>"211","ST"=>"239","SR"=>"597","SK"=>"421","SI"=>"386","SE"=>"46","SZ"=>"268","SX"=>"1-721","SC"=>"248","SY"=>"963","TC"=>"1-649","TD"=>"235","TG"=>"228","TH"=>"66","TJ"=>"992","TK"=>"690","TM"=>"993","TL"=>"670","TO"=>"676","TT"=>"1-868","TN"=>"216","TR"=>"90","TV"=>"688","TW"=>"886","TZ"=>"255","UG"=>"256","UA"=>"380","UM"=>"1","UY"=>"598","US"=>"1","UZ"=>"998","VA"=>"379","VC"=>"1-784","VE"=>"58","VG"=>"1-284","VI"=>"1-340","VN"=>"84","VU"=>"678","WF"=>"681","WS"=>"685","YE"=>"967","ZA"=>"27","ZM"=>"260","ZW"=>"263"];
+    public $countries = ["AW"=>"297","AE"=>"971","AF"=>"93","AO"=>"244","AI"=>"1-264","AX"=>"358-18","AL"=>"355","AD"=>"376","AR"=>"54","AM"=>"374","AS"=>"1-684","AQ"=>"672","TF"=>"262","AG"=>"1-268","AU"=>"61","AT"=>"43","AZ"=>"994","BI"=>"257","BE"=>"32","BJ"=>"229","BQ"=>"599","BF"=>"226","BD"=>"880","BG"=>"359","BH"=>"973","BS"=>"1-242","BA"=>"387","BL"=>"590","BY"=>"375","BZ"=>"501","BM"=>"1-441","BO"=>"591","BR"=>"55","BB"=>"1-246","BN"=>"673","BT"=>"975","BV"=>"47","BW"=>"267","CF"=>"236","CA"=>"1","CC"=>"61","CH"=>"41","CL"=>"56","CN"=>"86","CI"=>"225","CM"=>"237","CD"=>"243","CG"=>"242","CK"=>"682","CO"=>"57","KM"=>"269","CV"=>"238","CR"=>"506","CU"=>"53","CW"=>"599","CX"=>"61","KY"=>"1-345","CY"=>"357","CZ"=>"420","DE"=>"49","DJ"=>"253","DM"=>"1-767","DK"=>"45","DO"=>"1-809","DZ"=>"213","EC"=>"593","EG"=>"20","ER"=>"291","EH"=>"212","ES"=>"34","EE"=>"372","ET"=>"251","FI"=>"358","FJ"=>"679","FK"=>"500","FR"=>"33","FO"=>"298","FM"=>"691","GA"=>"241","GB"=>"44","GE"=>"995","GG"=>"44","GH"=>"233","GI"=>"350","GN"=>"224","GP"=>"590","GM"=>"220","GW"=>"245","GQ"=>"240","GR"=>"30","GD"=>"1-473","GL"=>"299","GT"=>"502","GF"=>"594","GU"=>"1-671","GY"=>"592","HK"=>"852","HM"=>"61","HN"=>"504","HR"=>"385","HT"=>"509","HU"=>"36","ID"=>"62","IM"=>"44","IN"=>"91","IO"=>"246","IE"=>"353","IR"=>"98","IQ"=>"964","IS"=>"354","IL"=>"972","IT"=>"39","JM"=>"1-876","JE"=>"44","JO"=>"962","JP"=>"81","KZ"=>"7","KE"=>"254","KG"=>"996","KH"=>"855","KI"=>"686","KN"=>"1-869","KR"=>"82","KW"=>"965","LA"=>"856","LB"=>"961","LR"=>"231","LY"=>"218","LC"=>"1-758","LI"=>"423","LK"=>"94","LS"=>"266","LT"=>"370","LU"=>"352","LV"=>"371","MO"=>"853","MF"=>"590","MA"=>"212","MC"=>"377","MD"=>"373","MG"=>"261","MV"=>"960","MX"=>"52","MH"=>"692","MK"=>"389","ML"=>"223","MT"=>"356","MM"=>"95","ME"=>"382","MN"=>"976","MP"=>"1-670","MZ"=>"258","MR"=>"222","MS"=>"1-664","MQ"=>"596","MU"=>"230","MW"=>"265","MY"=>"60","YT"=>"262","NA"=>"264","NC"=>"687","NE"=>"227","NF"=>"672","NG"=>"234","NI"=>"505","NU"=>"683","NL"=>"31","NO"=>"47","NP"=>"977","NR"=>"674","NZ"=>"64","OM"=>"968","PK"=>"92","PA"=>"507","PN"=>"64","PE"=>"51","PH"=>"63","PW"=>"680","PG"=>"675","PL"=>"48","PR"=>"1-787","KP"=>"850","PT"=>"351","PY"=>"595","PS"=>"970","PF"=>"689","QA"=>"974","RE"=>"262","RO"=>"40","RU"=>"7","RW"=>"250","SA"=>"966","SD"=>"249","SN"=>"221","SG"=>"65","GS"=>"500","SH"=>"290","SJ"=>"47","SB"=>"677","SL"=>"232","SV"=>"503","SM"=>"378","SO"=>"252","PM"=>"508","RS"=>"381","SS"=>"211","ST"=>"239","SR"=>"597","SK"=>"421","SI"=>"386","SE"=>"46","SZ"=>"268","SX"=>"1-721","SC"=>"248","SY"=>"963","TC"=>"1-649","TD"=>"235","TG"=>"228","TH"=>"66","TJ"=>"992","TK"=>"690","TM"=>"993","TL"=>"670","TO"=>"676","TT"=>"1-868","TN"=>"216","TR"=>"90","TV"=>"688","TW"=>"886","TZ"=>"255","UG"=>"256","UA"=>"380","UM"=>"1","UY"=>"598","US"=>"1","UZ"=>"998","VA"=>"379","VC"=>"1-784","VE"=>"58","VG"=>"1-284","VI"=>"1-340","VN"=>"84","VU"=>"678","WF"=>"681","WS"=>"685","YE"=>"967","ZA"=>"27","ZM"=>"260","ZW"=>"263"];
 
     /**
      * Test mode
@@ -71,7 +71,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Constructor for the gateway
      */
     public function __construct() {
-        self::log_to_file('__construct called');
         $this->id                 = 'payorc';
         $this->icon              = apply_filters('woocommerce_payorc_icon', '');
         $this->has_fields        = false;
@@ -103,12 +102,8 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
         add_action('wp_ajax_payorc_get_transaction', array($this, 'ajax_get_transaction'));
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
-        
-        // Only add payment validation for actual payment processing
-        if (is_checkout() && !is_wc_endpoint_url('order-pay')) {
-            add_action('wp_ajax_payorc_validate_payment', array($this, 'validate_payment'));
-            add_action('wp_ajax_nopriv_payorc_validate_payment', array($this, 'validate_payment'));
-        }
+        add_action('wp_ajax_payorc_validate_payment', array($this, 'validate_payment'));
+        add_action('wp_ajax_nopriv_payorc_validate_payment', array($this, 'validate_payment'));
         
         // Add test card information for test mode
         if ($this->testmode === 'yes') {
@@ -120,7 +115,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get country code
      */
     private function get_country_code($country) {
-        self::log_to_file('get_country_code called with country=' . $country);
         return isset($this->countries[$country]) ? $this->countries[$country] : '';
     }
 
@@ -128,14 +122,13 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Process the payment
      */
     public function process_payment($order_id) {
-        self::log_to_file('process_payment called with order_id=' . $order_id);
         global $woocommerce;
         
         try {
             
             $order = wc_get_order($order_id);
             if (!$order) {
-                self::log_to_file('PayOrc Error: Invalid order ID ' . $order_id);
+                error_log('PayOrc Error: Invalid order ID ' . $order_id);
                 throw new Exception('Invalid order ID');
             }
 
@@ -235,19 +228,19 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             ));
 
             if (is_wp_error($response)) {
-                self::log_to_file('PayOrc API Error: ' . $response->get_error_message());
+                error_log('PayOrc API Error: ' . $response->get_error_message());
                 throw new Exception($response->get_error_message());
             }
 
             $body = json_decode(wp_remote_retrieve_body($response), true);
 
             if (!isset($body['status']) || !isset($body['status_code'])) {
-                self::log_to_file('PayOrc Error: Invalid API response format');
-                throw new Exception($body['message'] ?? 'Invalid API response format');
+                error_log('PayOrc Error: Invalid API response format');
+                throw new Exception('Invalid API response format');
             }
 
             if ($body['status'] !== 'SUCCESS' || $body['status_code'] !== '00') {
-                self::log_to_file('PayOrc Error: ' . (isset($body['message']) ? $body['message'] : 'Unknown error'));
+                error_log('PayOrc Error: ' . (isset($body['message']) ? $body['message'] : 'Unknown error'));
                 throw new Exception(isset($body['message']) ? $body['message'] : 'Unknown error');
             }
 
@@ -257,13 +250,13 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             // Return based on checkout mode
             if ($this->checkout_mode === 'hosted') {
-                self::log_to_file('PayOrc: Redirecting to hosted checkout: ' . $body['payment_link']);
+                error_log('PayOrc: Redirecting to hosted checkout: ' . $body['payment_link']);
                 return array(
                     'result' => 'success',
                     'redirect' => $body['payment_link']
                 );
             } else {
-                self::log_to_file('PayOrc: Setting up iframe checkout');
+                error_log('PayOrc: Setting up iframe checkout');
                 WC()->session->set('payorc_iframe_url', $body['iframe_link']);
                 return array(
                     'result' => 'success',
@@ -276,7 +269,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 );
             }
         } catch (Exception $e) {
-            self::log_to_file('PayOrc Process Payment Exception: ' . $e->getMessage());
+            error_log('PayOrc Process Payment Exception: ' . $e->getMessage());
             wc_add_notice(__('Payment error: ', 'payorc-payments') . $e->getMessage(), 'error');
             return array('result' => 'fail');
         }
@@ -286,20 +279,19 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Handle the webhook and return URLs
      */
     public function webhook_handler() {
-        self::log_to_file('webhook_handler called');
         if (isset($_GET['payorc-action'])) {
-            self::log_to_file('came here');
+            error_log('came here');
             $action = sanitize_text_field($_GET['payorc-action']);
             $order_id = isset($_GET['order_id']) ? absint($_GET['order_id']) : 0;
             $order = wc_get_order($order_id);
-            self::log_to_file('Order ID - '.$order_id);
-            self::log_to_file('Order - '.print_r($order, true));
+            error_log('Order ID - '.$order_id);
+            error_log('Order - '.print_r($order, true));
             if (!$order) {
                 wp_redirect(wc_get_checkout_url());
                 exit;
             }
 
-            self::log_to_file('action - '.$action);
+            error_log('action - '.$action);
             $gateway = new WC_PayOrc_Payment_Gateway();
             switch ($action) {
                 case 'success':
@@ -355,7 +347,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Initialize Gateway Settings Form Fields
      */
     public function init_form_fields() {
-        self::log_to_file('init_form_fields called');
         $this->form_fields = array(
             'enabled' => array(
                 'title'       => __('Enable/Disable', 'payorc-payments'),
@@ -452,7 +443,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Validate merchant credentials
      */
     private function validate_merchant_credentials() {
-        self::log_to_file('validate_merchant_credentials called');
         $merchant_key = $this->testmode ? $this->get_option('test_merchant_key') : $this->get_option('live_merchant_key');
         $merchant_secret = $this->testmode ? $this->get_option('test_merchant_secret') : $this->get_option('live_merchant_secret');
 
@@ -481,7 +471,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get browser information
      */
     private function get_browser_info() {
-        self::log_to_file('get_browser_info called');
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         
         $browser = 'Unknown';
@@ -523,7 +512,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get platform information
      */
     private function get_platform() {
-        self::log_to_file('get_platform called');
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         
         if (preg_match('/linux|android/i', $user_agent)) {
@@ -543,7 +531,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Add payment scripts
      */
     public function payment_scripts() {
-        self::log_to_file('payment_scripts called');
         if (!is_checkout() || $this->enabled !== 'yes') {
             return;
         }
@@ -572,14 +559,11 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Handle payment validation AJAX request
      */
     public static function validate_payment() {
-        self::log_to_file('validate_payment called');
+        check_ajax_referer('payorc-payment-validation', 'nonce');
+
         try {
-            self::log_to_file('PayOrc: Starting payment validation');
-            
             $gateway = new WC_PayOrc_Payment_Gateway();
             $payment_data = isset($_POST['payment_data']) ? wp_unslash($_POST['payment_data']) : array();
-            
-            self::log_to_file('PayOrc: Payment data received: ' . print_r($payment_data, true));
             
             // Get order ID from payment data if session is expired
             $order_id = WC()->session->get('order_awaiting_payment');
@@ -587,10 +571,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 $order_id = $payment_data['m_order_id'];
             }
 
-            self::log_to_file('PayOrc: Order ID from session: ' . $order_id);
-
             if (!$order_id) {
-                self::log_to_file('PayOrc: No order ID found');
                 wp_send_json_error(array(
                     'message' => 'Order ID not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -600,7 +581,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
             $order = wc_get_order($order_id);
             if (!$order) {
-                self::log_to_file('PayOrc: Order not found for ID: ' . $order_id);
                 wp_send_json_error(array(
                     'message' => 'Order not found',
                     'redirect_url' => wc_get_checkout_url()
@@ -608,10 +588,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 return;
             }
 
-            self::log_to_file('PayOrc: Validating order: ' . $order_id);
-            
             if ($gateway->is_valid_order($payment_data)) {
-                self::log_to_file('PayOrc: Order validation successful');
                 $gateway->store_payment_info($payment_data, $order);
                 $order->payment_complete();
                 $order->add_order_note(__('PayOrc payment completed', 'payorc-payments'));
@@ -620,7 +597,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                     'redirect_url' => $gateway->get_return_url($order)
                 ));
             } else {
-                self::log_to_file('PayOrc: Order validation failed');
                 $order->update_status('failed', __('PayOrc payment failed', 'payorc-payments'));
                 wp_send_json_error(array(
                     'message' => 'Payment validation failed',
@@ -628,7 +604,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
                 ));
             }
         } catch (Exception $e) {
-            self::log_to_file('PayOrc Payment Validation Error: ' . $e->getMessage());
+            error_log('PayOrc Payment Validation Error: ' . $e->getMessage());
             wp_send_json_error(array(
                 'message' => 'An error occurred during payment validation',
                 'redirect_url' => wc_get_checkout_url()
@@ -642,7 +618,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Check if the order is valid
      */
     protected function is_valid_order($payment_data) {
-        self::log_to_file('is_valid_order called');
         return isset($payment_data['status_code']) 
             && isset($payment_data['status'])
             && $payment_data['status_code'] == '00' 
@@ -653,7 +628,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Store payment information in the database
      */
     protected function store_payment_info($payment_data, $order) {
-        self::log_to_file('store_payment_info called');
         global $wpdb;
 
         // Convert payment data to array if it's a string
@@ -697,11 +671,11 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             if (!$exists) {
                 $result = $wpdb->insert($wpdb->prefix . 'payorc_transaction', $data);
                 if ($result === false) {
-                    self::log_to_file('PayOrc DB Error: ' . $wpdb->last_error);
+                    error_log('PayOrc DB Error: ' . $wpdb->last_error);
                 }
             }
         } catch (Exception $e) {
-            self::log_to_file('PayOrc DB Exception: ' . $e->getMessage());
+            error_log('PayOrc DB Exception: ' . $e->getMessage());
         }
     }
 
@@ -709,7 +683,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Verify webhook signature
      */
     private function verify_webhook_signature($signature, $payload) {
-        self::log_to_file('verify_webhook_signature called');
         $expected = hash_hmac('sha256', $payload, $this->merchant_secret);
         return hash_equals($expected, $signature);
     }
@@ -718,7 +691,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Get transaction details by order ID
      */
     public static function get_transaction($order_id) {
-        self::log_to_file('get_transaction called with order_id=' . $order_id);
         global $wpdb;
         
         $query = $wpdb->prepare(
@@ -736,7 +708,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * AJAX handler for getting transaction details
      */
     public function ajax_get_transaction() {
-        self::log_to_file('ajax_get_transaction called');
         // Check user capabilities
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array('message' => 'Permission denied'));
@@ -771,7 +742,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Add admin menu for transaction lookup
      */
     public function add_admin_menu() {
-        self::log_to_file('add_admin_menu called');
         add_submenu_page(
             'woocommerce',
             __('PayOrc Transactions', 'payorc-payments'),
@@ -786,7 +756,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Enqueue admin scripts
      */
     public function admin_scripts($hook) {
-        self::log_to_file('admin_scripts called with hook=' . $hook);
         if ($hook != 'woocommerce_page_payorc-transactions') {
             return;
         }
@@ -806,7 +775,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
      * Render transaction lookup page
      */
     public function render_transaction_page() {
-        self::log_to_file('render_transaction_page called');
         $transactions = $this->get_payorc_transactions();
         ?>
         <div class="wrap">
@@ -862,7 +830,6 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
     }
 
     public function get_payorc_transactions() {
-        self::log_to_file('get_payorc_transactions called');
         global $wpdb;
         $table_name = $wpdb->prefix . 'payorc_transaction';
     
@@ -893,26 +860,11 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
 
     public function webhook() 
     {
-        self::log_to_file('webhook called');
         if (isset($_GET['payorc-action'])) {
             $this->webhook_handler();
         } else {
             wp_redirect(wc_get_checkout_url());
             exit;
         }
-    }
-
-    /**
-     * Log message to file in logs directory, file named by current date and hour
-     */
-    private static function log_to_file($message) {
-        $log_dir = dirname(__DIR__) . '/../logs';
-        if (!file_exists($log_dir)) {
-            mkdir($log_dir, 0755, true);
-        }
-        $filename = $log_dir . '/payorc-' . date('Y-m-d-H') . '.log';
-        $datetime = date('Y-m-d H:i:s');
-        $log_entry = "[$datetime] $message\n";
-        file_put_contents($filename, $log_entry, FILE_APPEND);
     }
 }

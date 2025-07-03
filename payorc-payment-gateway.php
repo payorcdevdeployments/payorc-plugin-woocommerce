@@ -20,22 +20,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Log message to file in logs directory, file named by current date and hour
- */
-function payorc_log_to_file($message) {
-    $log_dir = __DIR__ . '/logs';
-    if (!file_exists($log_dir)) {
-        mkdir($log_dir, 0755, true);
-    }
-    $filename = $log_dir . '/payorc-' . date('Y-m-d-H') . '.log';
-    $datetime = date('Y-m-d H:i:s');
-    $log_entry = "[$datetime] $message\n";
-    file_put_contents($filename, $log_entry, FILE_APPEND);
-}
-
-payorc_log_to_file('PayOrc plugin loaded. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
-
 // Define plugin constants
 define('PAYORC_PLUGIN_FILE', __FILE__);
 define('PAYORC_PLUGIN_DIR', plugin_dir_path(__FILE__));
@@ -46,7 +30,6 @@ define('PAYORC_VERSION', '1.0.0');
  * Create necessary directories and files
  */
 function payorc_create_directories() {
-    payorc_log_to_file('PayOrc plugin activation: Creating directories. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
     $directories = array(
         PAYORC_PLUGIN_DIR . 'assets',
         PAYORC_PLUGIN_DIR . 'assets/css',
@@ -66,7 +49,6 @@ register_activation_hook(__FILE__, 'payorc_create_directories');
  * Create PayOrc tables on plugin activation
  */
 function payorc_create_tables() {
-    payorc_log_to_file('PayOrc plugin activation: Creating tables. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
     global $wpdb;
 
     $charset_collate = $wpdb->get_charset_collate();
@@ -104,27 +86,18 @@ register_activation_hook(__FILE__, 'payorc_create_tables');
  * Initialize the plugin
  */
 function payorc_init() {
-    try {
-        payorc_log_to_file('PayOrc plugin init. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
-        if (!class_exists('WC_Payment_Gateway')) {
-            payorc_log_to_file('WooCommerce not active. Exiting init.');
-            return;
-        }
-
-        // Load plugin text domain
-        load_plugin_textdomain('payorc-payments', false, dirname(plugin_basename(__FILE__)) . '/languages');
-        
-        // Include main gateway class
-        require_once PAYORC_PLUGIN_DIR . 'includes/class-wc-payorc-payment-gateway.php';
-        
-        // Add the gateway to WooCommerce
-        add_filter('woocommerce_payment_gateways', 'payorc_add_gateway');
-    } catch (Exception $e) {
-        payorc_log_to_file('Last PHP error: ' . print_r(error_get_last(), true));
-        payorc_log_to_file('PayOrc plugin init error: ' . $e->getMessage());
+    if (!class_exists('WC_Payment_Gateway')) {
         return;
     }
+
+    // Load plugin text domain
+    load_plugin_textdomain('payorc-payments', false, dirname(plugin_basename(__FILE__)) . '/languages');
     
+    // Include main gateway class
+    require_once PAYORC_PLUGIN_DIR . 'includes/class-wc-payorc-payment-gateway.php';
+    
+    // Add the gateway to WooCommerce
+    add_filter('woocommerce_payment_gateways', 'payorc_add_gateway');
 }
 add_action('plugins_loaded', 'payorc_init');
 
@@ -132,7 +105,6 @@ add_action('plugins_loaded', 'payorc_init');
  * Add PayOrc Gateway to WooCommerce
  */
 function payorc_add_gateway($methods) {
-    payorc_log_to_file('PayOrc gateway added to WooCommerce. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
     $methods[] = 'WC_PayOrc_Payment_Gateway';
     return $methods;
 }
@@ -141,7 +113,6 @@ function payorc_add_gateway($methods) {
  * Add plugin action links
  */
 function payorc_plugin_action_links($links) {
-    payorc_log_to_file('PayOrc plugin action links filter. Accessed from ' . (is_admin() ? 'admin' : 'frontend'));
     $plugin_links = array(
         '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout&section=payorc') . '">' . __('Settings', 'payorc-payments') . '</a>'
     );
@@ -154,7 +125,6 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'payorc_plugin_ac
  */
 function payorc_admin_notice_wc_not_active() {
     if (!class_exists('WC_Payment_Gateway')) {
-        payorc_log_to_file('WooCommerce not active: admin notice shown.');
         ?>
         <div class="notice notice-error">
             <p><?php _e('PayOrc requires WooCommerce to be installed and active.', 'payorc-payments'); ?></p>
