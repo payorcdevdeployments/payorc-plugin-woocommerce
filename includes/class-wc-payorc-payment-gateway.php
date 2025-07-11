@@ -136,7 +136,7 @@ class WC_PayOrc_Payment_Gateway extends WC_Payment_Gateway {
             $browser_info = $this->get_browser_info();
             // Get country codes
             $billing_country_code = $this->get_country_code($order->get_billing_country());
-            $shipping_country_code = $this->get_country_code($order->get_shipping_country());
+            $shipping_country_code = $this->get_country_code($order->get_billing_country());
 
             // Prepare the payment data
             $payment_data = array(

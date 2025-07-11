@@ -100,6 +100,18 @@ function payorc_init() {
     add_filter('woocommerce_payment_gateways', 'payorc_add_gateway');
 }
 add_action('plugins_loaded', 'payorc_init');
+add_action('wp_ajax_payorc_validate_payment', 'payorc_handle_validate_payment');
+add_action('wp_ajax_nopriv_payorc_validate_payment', 'payorc_handle_validate_payment');
+
+function payorc_handle_validate_payment() {
+    // Make sure class exists
+    if (class_exists('WC_PayOrc_Payment_Gateway')) {
+        $gateway = new WC_PayOrc_Payment_Gateway();
+        $gateway->validate_payment(); // call your class method
+    } else {
+        wp_send_json_error(['message' => 'Gateway class not available']);
+    }
+}
 
 /**
  * Add PayOrc Gateway to WooCommerce
